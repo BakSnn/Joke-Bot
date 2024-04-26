@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1714159684124-1" author="baska (generated)">
+        <createSequence incrementBy="1" sequenceName="clients_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1714159684124-2" author="baska (generated)">
+        <createSequence incrementBy="1" sequenceName="clients_role_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1714159684124-3" author="baska (generated)">
+        <createSequence incrementBy="1" sequenceName="jokes_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1714159684124-4" author="baska (generated)">
+        <createSequence incrementBy="1" sequenceName="users_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1714159684124-5" author="baska (generated)">
+        <createTable tableName="clients">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_clients"/>
+            </column>
+            <column name="username" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="expired" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="locked" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enabled" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1714159684124-6" author="baska (generated)">
+        <createTable tableName="clients_roles">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_clients_roles"/>
+            </column>
+            <column name="clients_authority" type="SMALLINT"/>
+            <column name="clients_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1714159684124-7" author="baska (generated)">
+        <createTable tableName="jokes">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_jokes"/>
+            </column>
+            <column name="joke" type="VARCHAR(255)"/>
+            <column name="time_created" type="DATETIME"/>
+            <column name="time_updated" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1714159684124-8" author="baska (generated)">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_users"/>
+            </column>
+            <column name="joke_id" type="BIGINT"/>
+            <column name="call_time" type="DATETIME"/>
+            <column name="user_id" type="BIGINT"/>
+            <column name="joke_text" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1714159684124-9" author="baska (generated)">
+        <addForeignKeyConstraint baseColumnNames="clients_id" baseTableName="clients_roles"
+                                 constraintName="FK_CLIENTS_ROLES_ON_CLIENTS" referencedColumnNames="id"
+                                 referencedTableName="clients"/>
+    </changeSet>
+    <changeSet id="1714159684124-10" author="baska (generated)">
+        <addForeignKeyConstraint baseColumnNames="joke_id" baseTableName="users" constraintName="FK_USERS_ON_JOKE"
+                                 referencedColumnNames="id" referencedTableName="jokes"/>
+    </changeSet>
+
+</databaseChangeLog>
