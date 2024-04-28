@@ -3,9 +3,9 @@ package ru.baksnn.project.JokeBot.model;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum ClientsAuthority implements GrantedAuthority {
-    VIEW_JOKES,
-    PLACE_JOKES,
-    FULL;
+    DEFAULT_USER,
+    MODERATOR,
+    ADMIN;
 
     @Override
     public String getAuthority() {

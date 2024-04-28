@@ -1,5 +1,6 @@
 package ru.baksnn.project.JokeBot.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 
@@ -14,6 +15,8 @@ import ru.baksnn.project.JokeBot.model.ClientsAuthority;
 import ru.baksnn.project.JokeBot.model.ClientsRole;
 import ru.baksnn.project.JokeBot.repository.ClientsRepository;
 import ru.baksnn.project.JokeBot.repository.ClientsRolesRepository;
+
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -35,11 +38,28 @@ public class ClientsServiceImpl implements ClientsService, UserDetailsService {
                             .setExpired(false)
                             .setEnabled(true)
             );
-            clientsRolesRepository.save(new ClientsRole(null, ClientsAuthority.VIEW_JOKES, user));
+            clientsRolesRepository.save(new ClientsRole(null, ClientsAuthority.DEFAULT_USER, user));
         }
         else {
             throw new UsernameAlreadyExistsException();
         }
+    }
+    @Override
+    public List<ClientsRole> getUserRoles(String username) {
+        Clients user = clientsRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
+        return user.getClientsRoles();
+    }
+
+    @Override
+    @Transactional
+    public void setUserRole(String username, ClientsRole newRole) {
+        Clients user = clientsRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
+
+        // Установить новую роль
+        newRole.setClients(user);
+        clientsRolesRepository.save(newRole);
     }
 
 

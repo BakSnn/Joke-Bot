@@ -77,4 +77,10 @@ public class Clients implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
+    @Setter
+    @Getter
+    private ClientsAuthority authority;
+
+
+
 }

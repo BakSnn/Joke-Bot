@@ -23,12 +23,12 @@ public class SpringSecurityConfiguration {
                         expressionInterceptUrlRegistry
                                 .requestMatchers("/registration", "/login").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/jokes").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/jokes").hasAuthority(ClientsAuthority.PLACE_JOKES.getAuthority())
-                                .requestMatchers(HttpMethod.GET, "/jokes/**").hasAuthority(ClientsAuthority.FULL.getAuthority())
-                                .requestMatchers(HttpMethod.POST, "/jokes").hasAuthority(ClientsAuthority.FULL.getAuthority())
-                                .requestMatchers(HttpMethod.PUT, "/jokes/**").hasAuthority(ClientsAuthority.FULL.getAuthority())
-                                .requestMatchers(HttpMethod.DELETE, "/jokes/**").hasAuthority(ClientsAuthority.FULL.getAuthority())
-                                .anyRequest().hasAuthority(ClientsAuthority.FULL.getAuthority()))
+                                .requestMatchers(HttpMethod.POST, "/jokes").hasAuthority(ClientsAuthority.MODERATOR.getAuthority())
+                                .requestMatchers(HttpMethod.GET, "/jokes/**").hasAuthority(ClientsAuthority.ADMIN.getAuthority())
+                                .requestMatchers(HttpMethod.POST, "/jokes").hasAuthority(ClientsAuthority.ADMIN.getAuthority())
+                                .requestMatchers(HttpMethod.PUT, "/jokes/**").hasAuthority(ClientsAuthority.ADMIN.getAuthority())
+                                .requestMatchers(HttpMethod.DELETE, "/jokes/**").hasAuthority(ClientsAuthority.ADMIN.getAuthority())
+                                .anyRequest().hasAuthority(ClientsAuthority.ADMIN.getAuthority()))
                 .formLogin(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable);
 

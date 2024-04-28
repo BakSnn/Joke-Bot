@@ -24,6 +24,7 @@
             </column>
             <column name="username" type="VARCHAR(255)"/>
             <column name="password" type="VARCHAR(255)"/>
+            <column name="authority" type="VARCHAR(255)"/>
             <column name="expired" type="BOOLEAN">
                 <constraints nullable="false"/>
             </column>
