@@ -19,6 +19,7 @@ public class ClientsController {
         clientsService.setUserRole(username, role);
         return ResponseEntity.ok().build();
     }
+    
     @GetMapping("/{username}/roles")
     public ResponseEntity<List<ClientsRole>> getUserRoles(@PathVariable String username) {
         List<ClientsRole> roles = clientsService.getUserRoles(username);
