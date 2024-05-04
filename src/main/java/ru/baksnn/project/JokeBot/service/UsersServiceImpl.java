@@ -38,7 +38,7 @@ public class UsersServiceImpl implements UsersService {
                 .map(jokeCalls -> jokeCalls.get(0))
                 .sorted(Comparator.comparing(jokeCall -> groupedJokes.get(jokeCall.getJokeId()).size(), Comparator.reverseOrder()))
                 .limit(5)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()).reversed();
     }
 
     @Override
