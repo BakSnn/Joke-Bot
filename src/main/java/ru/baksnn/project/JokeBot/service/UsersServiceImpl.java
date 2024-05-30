@@ -8,6 +8,7 @@ import ru.baksnn.project.JokeBot.model.Users;
 import ru.baksnn.project.JokeBot.repository.UsersRepository;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -30,17 +31,9 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public List<Users> topFiveJokes(){
-        Map<Long, List<Users>> groupedJokes = jokesCallRepository.findAll().stream()
-                .collect(Collectors.groupingBy(Users::getJokeId));
-
-        return groupedJokes.values().stream()
-                .map(jokeCalls -> jokeCalls.get(0))
-                .sorted(Comparator.comparing(jokeCall -> groupedJokes.get(jokeCall.getJokeId()).size(), Comparator.reverseOrder()))
-                .limit(5)
-                .collect(Collectors.toList()).reversed();
+    public List<Users> topFiveJokes() {
+        return jokesCallRepository.topFiveJokes();
     }
-
     @Override
     public Page<Users> getAllJokesPaged(Pageable pageable) {
         return jokesCallRepository.findAll(pageable);
