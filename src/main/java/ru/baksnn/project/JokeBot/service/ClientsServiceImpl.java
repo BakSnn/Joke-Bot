@@ -27,6 +27,7 @@ public class ClientsServiceImpl implements ClientsService, UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional
     public void registration(String username, String password) {
         if (!clientsRepository.findByUsername(username).isPresent()) {
             Clients user = clientsRepository.save(
