@@ -67,9 +67,11 @@ public class JokesServiceImpl implements JokesService {
                 .findFirst();
     }
     public Jokes getRandomJoke() {
-        List<Jokes> allJokes = jokesRepository.findAll();
-        int randomIndex = random.nextInt(allJokes.size());
-        return allJokes.get(randomIndex);
+        return jokesRepository.getRandomJoke();
+    }
+
+    public List<Jokes> topFiveJokes() {
+        return jokesRepository.topFiveJokes();
     }
 
 

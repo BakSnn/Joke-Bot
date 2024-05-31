@@ -8,17 +8,13 @@ import ru.baksnn.project.JokeBot.model.Users;
 import ru.baksnn.project.JokeBot.repository.UsersRepository;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UsersServiceImpl implements UsersService {
 
-    private final UsersRepository jokesCallRepository;
+    private final UsersRepository usersRepository;
 
     @Override
     public Users logJokeCall(Long userId, Long jokeId, String jokeText) {
@@ -27,20 +23,14 @@ public class UsersServiceImpl implements UsersService {
         users.setJokeId(jokeId);
         users.setJokeText(jokeText);
         users.setCallTime(LocalDateTime.now());
-        return jokesCallRepository.save(users);
+        return usersRepository.save(users);
     }
 
-    @Override
-    public List<Users> topFiveJokes() {
-        return jokesCallRepository.topFiveJokes();
-    }
-    @Override
-    public Page<Users> getAllJokesPaged(Pageable pageable) {
-        return jokesCallRepository.findAll(pageable);
-    }
+
 
     @Override
     public List<Users> allJokesCalls() {
-        return jokesCallRepository.findAll();
+        return usersRepository.findAll();
     }
+
 }
