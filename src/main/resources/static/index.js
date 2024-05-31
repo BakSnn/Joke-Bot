@@ -90,10 +90,10 @@
     body: JSON.stringify({ joke: newJokeText })
 });
     if (response.ok) {
-    alert('Шутка добавлено успешно');
+    alert('Шутка добавлена успешно');
     document.getElementById('addJokeMessage').textContent = '';
     getAllJokes();
 } else {
-    alert('Ошибка удаления шутки');
+    alert('Ошибка добавления шутки');
 }
 }
